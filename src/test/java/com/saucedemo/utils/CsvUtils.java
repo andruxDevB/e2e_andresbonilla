@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 public class CsvUtils {
 
-    private static final String FILE_PATH = "data/checkout_data.csv";
+    private static final String FILE_PATH = "data/data.csv";
 
     public static Data readCheckoutData() {
         try {
