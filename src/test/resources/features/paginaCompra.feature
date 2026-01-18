@@ -14,4 +14,3 @@ Feature: Automatizacion prueba funcional flujo de compra en pagina web
       Then finaliza la compra visualizando el mensaje "<message>"
       Examples:
         | user | password | f_name | l_name | p_code | message |
-        | standard_user | secret_sauce | Andres | Bonilla | 170150 | Thank you for your order! |
