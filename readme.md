@@ -10,5 +10,8 @@ Prerequisitos.
 3. Ejecución.
     - mvn clean verify → (desde consola en la raíz del proyecto)
     
-   Se obtiene como resultado
+4. Se obtiene como resultado
     - target/site/serenity/index.html → reporte de pruebas
+
+OBSERVACION:
+    Los datos csv se inyectan desde src/main/java/com/saucedemo/utils/CsvExamples.java
