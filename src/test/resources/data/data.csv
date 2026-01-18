@@ -1,2 +1,2 @@
-username,password,firstName,lastName,postalCode
-standard_user,secret_sauce,Andres,Bonilla,170150
+user,password,f_name,l_name,p_code,message
+standard_user,secret_sauce,Andres,Bonilla,170150,Thank you for your order!

@@ -8,64 +8,112 @@
   <artifactId>e2e_andresbonillas</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>e2e_andresbonillas</name>
-  <url>http://www.example.com</url>
-
   <properties>
     <serenity.version>4.2.22</serenity.version>
-    <serenity.maven.version>4.2.22</serenity.maven.version>
-    <selenium.version>4.16.1</selenium.version>
-    <java.version>17</java.version>
+    <junit.version>4.13.2</junit.version>
+    <lombok.version>1.18.30</lombok.version>
   </properties>
 
   <dependencies>
-
-    <!-- Serenity Core -->
     <dependency>
       <groupId>net.serenity-bdd</groupId>
       <artifactId>serenity-core</artifactId>
-      <version>4.2.22</version>
+      <version>${serenity.version}</version>
     </dependency>
-
-    <!-- Serenity + Cucumber -->
+    <dependency>
+      <groupId>net.serenity-bdd</groupId>
+      <artifactId>serenity-junit</artifactId>
+      <version>${serenity.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>net.serenity-bdd</groupId>
       <artifactId>serenity-cucumber</artifactId>
-      <version>4.2.22</version>
-    </dependency>
-
-    <!-- JUnit 5 Platform -->
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-suite</artifactId>
-      <version>1.10.2</version>
+      <version>${serenity.version}</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-
+    <!-- Serenity Screenplay (optional, but recommended) -->
+    <dependency>
+      <groupId>net.serenity-bdd</groupId>
+      <artifactId>serenity-screenplay</artifactId>
+      <version>${serenity.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Serenity WebDriver integration (for web tests) -->
+    <dependency>
+      <groupId>net.serenity-bdd</groupId>
+      <artifactId>serenity-screenplay-webdriver</artifactId>
+      <version>${serenity.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.4.14</version>
+    </dependency>
 
   </dependencies>
 
-
   <build>
     <plugins>
+
+      <!-- GENERADOR CSV -> EXAMPLES -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>generate-examples-from-csv</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <mainClass>com.saucedemo.utils.CsvExamples</mainClass>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- SUREFIRE -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
           <useModulePath>false</useModulePath>
         </configuration>
       </plugin>
+
+      <!-- SERENITY REPORTS -->
+      <plugin>
+        <groupId>net.serenity-bdd.maven.plugins</groupId>
+        <artifactId>serenity-maven-plugin</artifactId>
+        <version>4.2.22</version>
+        <executions>
+          <execution>
+            <id>serenity-reports</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>aggregate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
